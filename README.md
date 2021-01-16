@@ -12,7 +12,12 @@
 * [x] User can add as many ingredients as they want to a recipe.
 
 ## TODO: 
-* Throw error message if smoothie name is not unique.
+* [x] Throw error message if smoothie name is not unique.
+
+## Preview:
+
+![Website preview](preview.jpg "My Smoothies")
+
 
 ## Notes
 
