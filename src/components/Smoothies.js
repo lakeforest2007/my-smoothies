@@ -104,6 +104,9 @@ const AddNewBtn = styled.button`
     margin: 50px;
     border: none;
     padding: 10px 20px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
     background-color: grey;
     &:hover {
         cursor: pointer;
