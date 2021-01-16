@@ -8,9 +8,9 @@ import Modal from './Modal';
 
 function Smoothies() {
     // hard-coded data as example
-    const [recipes, setRecipes] = useLocalStorage('recipes', [
+    const [recipes, setRecipes] = useState([
         {
-            name: 'Mango Smoothie', // name field must be unique (act as id)
+            name: 'ex. Mango Smoothie', // name field must be unique (act as id)
             ingredients: 
                 [{
                     id: 1,
@@ -28,6 +28,17 @@ function Smoothies() {
         }
     ]);
 
+    useEffect(() => {
+        const recipes = JSON.parse(localStorage.getItem('recipes'));
+        if (recipes) {
+          setRecipes(recipes);
+        }
+    }, []);
+    
+    useEffect(() => {
+        localStorage.setItem('recipes', JSON.stringify(recipes));
+    }, [recipes]);
+
     // this function deletes a recipe
     function deleteRecipe(name) {
         // console.log(name);
@@ -43,14 +54,11 @@ function Smoothies() {
         }
         // console.log(newRecipe);
         setRecipes(recipes => [...recipes, newRecipe]);
-
-        // need to update local storage after adding new recipe
-        
     }
 
     const [showModal, hideModal] = useModal(() => (
         <ReactModal ariaHideApp={false} isOpen>
-            <Modal hideModal={hideModal} addEntry={addEntry} />
+            <Modal recipes={recipes} hideModal={hideModal} addEntry={addEntry} />
         </ReactModal>
     ));
 
@@ -76,10 +84,8 @@ function Smoothies() {
 
 export function useLocalStorage(key, initialVal) {
     const [value, setValue] = useState(() => {
-      const stickyValue = window.localStorage.getItem(key);
-      return stickyValue !== null
-        ? JSON.parse(stickyValue)
-        : initialVal;
+      const newVal = window.localStorage.getItem(key);
+      return newVal !== null ? JSON.parse(newVal) : initialVal;
     });
 
     useEffect(() => {

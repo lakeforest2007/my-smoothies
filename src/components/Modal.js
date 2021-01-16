@@ -27,18 +27,37 @@ function Modal(props) {
     function handleAdd() {
         setId(id + 1);
         const newList = list.concat({ id, quantity, ingredName });
-        console.log(newList);
+
         setList(newList);
         // reset quantity and ingredient name fields
         setQuantity('');
         setIngred('');
     }
 
+    const [recipeList] = useState(JSON.parse(window.localStorage.getItem('recipes')));
+    
     function handleClick() {
-        alert("Recipe saved! Form will be reset.");
+        // testing purposes
+        // console.log('Recipes:');
+        // recipeList.map((item) => console.log(item.name));
+
+        // check if name value is empty
+        if (name === '') {
+            alert('Please enter a smoothie name.');
+            return;
+        }
+
+        if (recipeList.some((item) => item.name === name)) {
+            alert("Name already exists. Please enter another name.");
+            setName('');
+            return;
+        }
+
+        alert("Recipe saved!");
         const entry = {name, list};
         props.addEntry(entry);
         // reset name to blank field
+        props.hideModal();
         setName('');
         setList([]);
     }
