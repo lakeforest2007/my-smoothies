@@ -12,7 +12,7 @@
 * [x] User can add as many ingredients as they want to a recipe.
 
 ## TODO: 
-* [] Check for unique smoothie name.
+* Throw error message if smoothie name is not unique.
 
 ## Notes
 
